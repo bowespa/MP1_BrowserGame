@@ -4,9 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>What in the World?</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="questions.js"></script>
 </head>
 <body>
-    
+    <h1>What in the World?</h1>
+    <h4>Can you guess the country by the silouette?</h4>
+    <form id="quiz" name="quiz">
+        <img class="image" src="/assets/brazil-country-outline-768x432.jpg"><br>
+            <input type="radio" id="china" name="question1" value="China">
+            <label for="china">China</label><br>
+            <input type="radio" id="brazil" name="question1" value="Brazil">
+            <label for="brazil">Brazil</label><br>
+            <input type="radio" id="aus" name="question1" value="Austrailia">
+            <label for="aus">Austrailia</label><br>
+
+        <img class="image" src="/assets/file-5e62888e22183.jpg"><br>
+            <input type="radio" id="japan" name="question2" value="Japan">
+            <label for="japan">Japan</label><br>
+            <input type="radio" id="sweden" name="question2" value="Sweden">
+            <label for="sweden">Sweden</label><br>    
+            <input type="radio" id="norway" name="question2" value="Norway">
+            <label for="norway">Norway</label><br> 
+
+        
+            
+            <input id="button" type="button" value="Submit" onclick="check()">
+    </form>
+
+<div id="after_submit">
+<p id="number_correct"></p>
+</div>
+
+<button onclick="myFunction()">Restart</button>
+
+
+
 </body>
 </html>
