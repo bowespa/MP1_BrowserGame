@@ -1,63 +1,36 @@
-var numSelected = null;
-var tileSelected = null;
 
-var errors = 0;
+//board
+var blockSize = 25;
+var rows = 20;
+var cols = 20;
+var board;
+var context;
 
-var board = [
-    "--74916-5",
-    "2---6-3-9",
-    "-----7-1-",
-    "-586----4",
-    "--3----9-",
-    "--62--187",
-    "9-4-7---2",
-    "67-83----",
-    "81--45---"
-]
+//snake head
+var snakeX = blockSize * 5;
+var snakeY = blockSize * 5;
 
-var solutions = [
-    "387491625",
-    "241568379",
-    "569327418",
-    "758619234",
-    "123784596",
-    "496253187",
-    "934176852",
-    "675832941",
-    "812945763"
-]
+//food
+var foodX = blockSize * 10;
+var foodY = blockSize * 10;
 
 window.onload = function(){
-    setGame()
+    board = document.getElementById("board")
+    board.height = rows * blockSize;
+    board.width = cols * blockSize;
+    context = board.getContext("2d"); // used for drawing on the board
+
+    update()
 }
 
-function setGame(){
-    // Digits 1-9
-    for (let i = 1; i <= 9; i++){
-        //<div id='1' class='number'></div>
-        let number = document.createElement("div")
-        number.id = i
-        number.innerText = i
-        number.addEventListener("click", selectNumber)
-        number.classList.add("number")
-        document.getElementById("digits").appendChild(number)
-    }
+function update(){
+    context.fillStyle = "black";
+    context.fillRect(0, 0, board.width, board.height);
 
-    //Board 9x9
-    for (let r = 0; r < 9; r++){
-        for (let c = 0; c < 9; c++){
-            let tile = document.createElement("div")
-            tile.id = r.toString() + "-" + c.toString()
-            tile.classList.add("tile")
-            document.getElementById("board").appendChild(tile)
-        }
-    }
-}
+    context.fillStyle = "lime"
+    context.fillRect(snakeX, snakeY, blockSize, blockSize)
 
-function selectNumber(){
-    if (numSelected != null){
-        numSelected.classList.remove("number-selected")
-    }
-    numSelected = this
-    numSelected.classList.add("number-selected")
+    context.fillStyle = "red"
+    context.fillRect(foodX, foodY, blockSize, blockSize)
+
 }
