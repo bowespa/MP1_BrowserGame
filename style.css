@@ -1,4 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Permanent+Marker&family=Roboto:wght@100&display=swap');
+
 body {
-    font-family: 'Courier New', Courier, monospace;
     text-align: center;
+    background: url('/assets/cool-city.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#super {
+    font-family: 'Permanent Marker', cursive;
+    margin-right: 2rem;
+    color: red;
+    text-shadow: 2px 2px yellow;
+    font-size: 70px;
+}
+
+#snake {
+    font-family: 'Fredoka One', cursive;
+    font-size: 70px;
+    color: lime;
+    text-shadow: 2px 2px green;
+}
+
+
+#board {
+    border: 10px inset purple;
 }
