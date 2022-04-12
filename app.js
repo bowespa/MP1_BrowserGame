@@ -1,3 +1,8 @@
+var scoreDisplayElem = document.querySelector(".scoreboard");
+var hiScoreDisplayElem = document.querySelector(".hi");
+var score = 0;
+var hiScore = 0
+
 
 //board
 var blockSize = 25;
@@ -24,6 +29,7 @@ const mySound = new Audio("assets/mixkit-player-select-notification-2037.mp3")
 
 var gameOver = false;
 
+
 window.onload = function() {
     board = document.getElementById("board");
     board.height = rows * blockSize;
@@ -33,6 +39,7 @@ window.onload = function() {
     placeFood();
     myMusic.play();
     document.addEventListener("keyup", changeDirection);
+    // update();
     setInterval(update, 1000/10); //100 milliseconds
 }
 
@@ -50,7 +57,13 @@ function update() {
     if (snakeX == foodX && snakeY == foodY) {
         snakeBody.push([foodX, foodY]);
         placeFood();
-        mySound.play()
+        score++
+        scoreDisplayElem.innerHTML = score;
+        if (score > hiScore) {
+            hiScore = score;
+            hiScoreDisplayElem.innerHTML = '' + hiScore;
+        }
+        mySound.play();
     }
 
     for (let i = snakeBody.length-1; i > 0; i--) {
@@ -69,15 +82,19 @@ function update() {
     }
 
     //game over conditions
-    if (snakeX < 0 || snakeX >= cols*blockSize || snakeY < 0 || snakeY >= rows*blockSize) {
+    if (snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize) {
         gameOver = true;
         alert("Game Over");
+        scoreDisplayElem.innerHTML = ' 0';
+        score = 0;
     }
 
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
             gameOver = true;
             alert("Game Over");
+            scoreDisplayElem.innerHTML = ' 0';
+            score = 0;
         }
     }
 }
@@ -107,5 +124,4 @@ function placeFood() {
     foodX = Math.floor(Math.random() * cols) * blockSize;
     foodY = Math.floor(Math.random() * rows) * blockSize;
 }
-
 
