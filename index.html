@@ -9,19 +9,22 @@
     
 </head>
 <body>
+    <audio id="backgroundMusic">
+        <source src="./assets/mixkit-trance-party-166.mp3" type="audio/mpeg">
+    </audio>
 
     <h1 id="title"><span id="super">Super</span><span id="snake">Snake</span></h1>
     
     <div>
         <p>
-            <h1 style="color:white">Current Score: </h1>
-            <h1 class="scoreboard" style="color:white">0</h1>   
+            <h1>Current Score: </h1>
+            <h1 class="scoreboard">0</h1>   
         </p>   
         <p>
-            <h1 style="color:white">High Score: </h1>
-            <h1 class="hi" style="color:white">0</h1>
+            <h1>High Score: </h1>
+            <h1 class="hi" id="storage">0</h1>
         </p>
-        </div>
+    </div>
 
     <canvas id="board"></canvas>
     <script src="app.js"></script>

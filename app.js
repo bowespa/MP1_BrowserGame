@@ -1,9 +1,13 @@
 var scoreDisplayElem = document.querySelector(".scoreboard");
 var hiScoreDisplayElem = document.querySelector(".hi");
 var score = 0;
-var hiScore = 0
+var hiScore = 0;
 
+if (sessionStorage.getItem("highscore")) {
+     hiScore = sessionStorage.getItem("highscore")
+} 
 
+hiScoreDisplayElem.innerHTML = hiScore;
 //board
 var blockSize = 25;
 var rows = 20;
@@ -24,11 +28,16 @@ var snakeBody = [];
 var foodX;
 var foodY;
 
-const myMusic = new Audio("assets/mixkit-trance-party-166.mp3");
 const mySound = new Audio("assets/mixkit-player-select-notification-2037.mp3")
 
 var gameOver = false;
 
+const music = document.getElementById("backgroundMusic");
+music.volume = 0.8;
+
+function musicAudio(){
+    music.play();
+}
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -37,10 +46,10 @@ window.onload = function() {
     context = board.getContext("2d"); //used for drawing on the board
 
     placeFood();
-    myMusic.play();
     document.addEventListener("keyup", changeDirection);
     // update();
     setInterval(update, 1000/10); //100 milliseconds
+    musicAudio();
 }
 
 function update() {
@@ -61,7 +70,10 @@ function update() {
         scoreDisplayElem.innerHTML = score;
         if (score > hiScore) {
             hiScore = score;
-            hiScoreDisplayElem.innerHTML = '' + hiScore;
+            sessionStorage.setItem("highscore", hiScore);
+            hiScoreDisplayElem.innerHTML = sessionStorage.getItem("highscore");
+
+            //hiScoreDisplayElem.innerHTML = '' + hiScore;
         }
         mySound.play();
     }
@@ -80,6 +92,7 @@ function update() {
     for (let i = 0; i < snakeBody.length; i++) {
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
     }
+
 
     //game over conditions
     if (snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize) {
@@ -124,4 +137,6 @@ function placeFood() {
     foodX = Math.floor(Math.random() * cols) * blockSize;
     foodY = Math.floor(Math.random() * rows) * blockSize;
 }
+
+
 
