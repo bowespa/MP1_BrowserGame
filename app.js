@@ -57,6 +57,7 @@ window.onload = function() {
     setInterval(update, 1000/10); //100 milliseconds
 }
 
+//game refreshing
 function update() {
     //game over 
     if (gameOver) {
