@@ -4,7 +4,7 @@
 
 body {
     text-align: center;
-    background: url("assets/cyberpunk-city.jpg");
+    background: url("/assets/cyberpunk-city.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
