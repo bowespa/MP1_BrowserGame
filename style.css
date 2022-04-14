@@ -12,8 +12,8 @@ body {
 #super {
     font-family: 'Permanent Marker', cursive;
     margin-right: 2rem;
-    color: red;
-    text-shadow: 2px 2px yellow;
+    color: rgb(247, 17, 247);
+    text-shadow: 2px 2px skyblue;
     font-size: 70px;
 }
 
@@ -26,7 +26,8 @@ body {
 
 
 #board {
-    border: 10px inset purple;
+    border: 10px inset rgb(247, 17, 247);
+    box-shadow: 2px 2px 30px skyblue;
 }
 
 div, p{

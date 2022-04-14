@@ -3,11 +3,13 @@ var hiScoreDisplayElem = document.querySelector(".hi");
 var score = 0;
 var hiScore = 0;
 
+//keeps high score displayed after new game
 if (sessionStorage.getItem("highscore")) {
      hiScore = sessionStorage.getItem("highscore")
 } 
 
 hiScoreDisplayElem.innerHTML = hiScore;
+
 //board
 var blockSize = 25;
 var rows = 20;
@@ -19,6 +21,7 @@ var context;
 var snakeX = blockSize * 5;
 var snakeY = blockSize * 5;
 
+//movement speed of snake
 var velocityX = 0;
 var velocityY = 0;
 
@@ -28,17 +31,20 @@ var snakeBody = [];
 var foodX;
 var foodY;
 
-const mySound = new Audio("assets/mixkit-player-select-notification-2037.mp3")
-
 var gameOver = false;
 
-const music = document.getElementById("backgroundMusic");
-music.volume = 0.8;
+//music and sound effects
+const mySound = new Audio("assets/mixkit-player-select-notification-2037.mp3")
 
-function musicAudio(){
-    music.play();
+const theme = document.getElementById("bgd-music");
+theme.volume = 0.8;
+theme.loop = true;
+
+function playMusic(){
+    theme.play()
 }
 
+//when the game first loads
 window.onload = function() {
     board = document.getElementById("board");
     board.height = rows * blockSize;
@@ -47,22 +53,25 @@ window.onload = function() {
 
     placeFood();
     document.addEventListener("keyup", changeDirection);
-    // update();
+    document.addEventListener("keyup", playMusic)
     setInterval(update, 1000/10); //100 milliseconds
-    musicAudio();
 }
 
 function update() {
+    //game over 
     if (gameOver) {
         return;
     }
 
+    //draws board
     context.fillStyle="black";
     context.fillRect(0, 0, board.width, board.height);
 
+    //draws food
     context.fillStyle="red";
     context.fillRect(foodX, foodY, blockSize, blockSize);
 
+    //when snake eats food, food moves and is added to score
     if (snakeX == foodX && snakeY == foodY) {
         snakeBody.push([foodX, foodY]);
         placeFood();
@@ -72,12 +81,12 @@ function update() {
             hiScore = score;
             sessionStorage.setItem("highscore", hiScore);
             hiScoreDisplayElem.innerHTML = sessionStorage.getItem("highscore");
-
-            //hiScoreDisplayElem.innerHTML = '' + hiScore;
         }
+        //sound effect plays when food is eaten
         mySound.play();
     }
 
+    //adding blocks to snake body when food is eaten
     for (let i = snakeBody.length-1; i > 0; i--) {
         snakeBody[i] = snakeBody[i-1];
     }
@@ -85,6 +94,7 @@ function update() {
         snakeBody[0] = [snakeX, snakeY];
     }
 
+    //draws snake
     context.fillStyle="lime";
     snakeX += velocityX * blockSize;
     snakeY += velocityY * blockSize;
@@ -95,6 +105,7 @@ function update() {
 
 
     //game over conditions
+    //if the snake hits the border of board
     if (snakeX < 0 || snakeX > cols*blockSize || snakeY < 0 || snakeY > rows*blockSize) {
         gameOver = true;
         alert("Game Over");
@@ -102,6 +113,7 @@ function update() {
         score = 0;
     }
 
+    //if the snake eats itself
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
             gameOver = true;
@@ -112,6 +124,7 @@ function update() {
     }
 }
 
+//key directions to move snake
 function changeDirection(e) {
     if (e.code == "ArrowUp" && velocityY != 1) {
         velocityX = 0;
@@ -131,7 +144,7 @@ function changeDirection(e) {
     }
 }
 
-
+//randomizes food placement on board
 function placeFood() {
     //(0-1) * cols -> (0-19.9999) -> (0-19) * 25
     foodX = Math.floor(Math.random() * cols) * blockSize;
